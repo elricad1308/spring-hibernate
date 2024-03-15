@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+        "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+          destroy-method="close">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/its5a" />
+        <property name="username" value="root" />
+        <property name="password" value="2014C0Ord1n4$$" />
+    </bean>
+
+
+    <bean id="mySessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="annotatedClasses">
+            <list>
+                <value>mx.uacam.fi.isc.tsp.springhibernate.model.Persona</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <value>
+                hibernate.show_sql=true
+            </value>
+        </property>
+    </bean>
+
+
+    <bean id="personaDAO" class="mx.uacam.fi.isc.tsp.springhibernate.dao.PersonaDAOImpl">
+        <property name="sessionFactory" ref="mySessionFactory" />
+    </bean>
+</beans>
